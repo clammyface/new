@@ -1,117 +1,123 @@
-🧠 Likhai Assistant for Google Sheets
+# 🧠 Likhai Assistant for Google Sheets
 
-A powerful Google Sheets add-on that brings generative AI capabilities directly into your spreadsheet using a chat sidebar and in-sheet functions. Likhai Assistant helps you analyze tables, classify support tickets, auto-generate dashboards, and more using GPT-4o-mini through the LiteLLM proxy.
+Elevate your spreadsheet with the power of GPT. **Likhai Assistant** is a smart Google Sheets add-on that transforms your workflow through AI-driven insights, contextual chat, table generation, and visual dashboards—seamlessly embedded into your familiar Sheets interface.
 
-📦 Features
+---
 
-💬 Chat Sidebar with context-aware responses
+## 🌟 Key Features
 
-📄 =LIKHAIFORMULA(...) for AI-powered in-sheet insights
+🔹 **Smart Chat Sidebar**
 
-📊 Auto-generated Dashboards from selected data
+> Ask anything. Get answers with spreadsheet context. AI remembers your conversation.
 
-🏷️ Keyword-based Ticket Classifier (Product, Category, etc.)
+🔹 **Inline AI Formula**
 
-📋 Markdown Table Generator from plain prompts
+> Use `=LIKHAIFORMULA(...)` to extract insights, classify rows, or analyze patterns.
 
-📜 Interaction Logging to the "Likhai Logs" sheet
+🔹 **One-Click Dashboards**
 
-🔐 API key-based secure call to LiteLLM endpoint
+> Turn raw data into clean, modern dashboards with KPIs, charts, and summaries.
 
-🚀 Getting Started
+🔹 **Support Ticket Classifier**
 
-1. Setup
+> Classify product issues with rule-based logic (Product, Category, Subcategory).
 
-Open your Google Apps Script Project
+🔹 **Markdown Table Generator**
 
-Deploy or link to this sample Sheet
+> Generate full tables from plain-text prompts.
 
-2. File Structure
+🔹 **Query Logs**
 
-Code.gs: All backend logic
+> All chat queries and responses are saved in a `Likhai Logs` sheet.
 
-chat.html: Sidebar chat UI with styling and chat logic
+🔒 **Secure API Calls**
 
-3. Functions Overview
+> Integrated with [LiteLLM](https://docs.litellm.ai/) using your own key and endpoint.
 
-➤ LIKHAI(messages [, forceJson])
+---
 
-Sends chat messages to the LLM and returns the assistant's response.
+## 🚀 Getting Started
 
-➤ LIKHAIFORMULA(prompt, range)
+### 1. Setup
 
-Formula-style function for spreadsheet users to analyze selected table data using prompts.
+* Open the [Apps Script Project](https://script.google.com/u/0/home/projects/1XVMSvdFSd5RZItUqSECZuv6k3Ub1Ky-N-c0sQD9OHJsGMckGXRV5Sq90/edit)
+* Link to your copy of [this sample Google Sheet](https://docs.google.com/spreadsheets/d/1p71o9dSEz51RxC9H6aoyByBA16OlDjIdwnRS0-AdedI/edit?gid=243015641#gid=243015641)
 
-➤ processLikhaiQuery(query)
+### 2. File Structure
 
-Handles chat sidebar interaction using context and history.
+```
+├── Code.gs        # All backend logic & functions
+└── chat.html      # Clean chat interface with loading, memory & input controls
+```
 
-➤ classifyTickets()
+### 3. Feature Overview
 
-Classifies selected ticket rows into product, category, subcategory, etc., using hardcoded keyword rules.
+* `LIKHAI(messages [, forceJson])`: Core message handler to LiteLLM
+* `LIKHAIFORMULA(prompt, range)`: Formula-style data analysis
+* `processLikhaiQuery(query)`: Chat sidebar logic and history management
+* `classifyTickets()`: Rule-based ticket classification
+* `createTableFromUserPrompt()`: Markdown table to Sheet
+* `buildVideoStyleDashboard()`: Layout plan + chart insertion
+* `onOpen()` / `showLikhaiSidebar()`: UI menu + sidebar trigger
 
-➤ createTableFromUserPrompt()
+---
 
-Turns a plain-language prompt into a well-formatted Markdown table inserted into a new sheet.
+## 💻 Sidebar Chat UI
 
-➤ buildVideoStyleDashboard()
+Elegant, fast, and context-aware:
 
-Generates a modern dashboard layout using selected table data and AI-planned visualization strategy.
+* Memory of last 10 interactions
+* Auto scroll + clean assistant vs user bubble display
+* Loading spinner and disabled state for async handling
 
-➤ showLikhaiSidebar()
+---
 
-Displays the chat-based assistant in the Google Sheets sidebar.
+## ⚙️ Configuration
 
-➤ onOpen()
+Set your LiteLLM API Key and endpoint in `Code.gs`:
 
-Registers the Likhai Assistant menu in the Sheet UI.
-
-💬 Chat Sidebar UI
-
-Built using chat.html
-
-Automatically maintains chat history and displays alternating roles
-
-Responsive buttons and loading indicators
-
-⚙️ Configuration
-
-Update the following line with your LiteLLM API Key:
-
+```js
 const LITE_LLM_KEY = "sk-xxxx";
+const LITE_LLM_ENDPOINT = "https://your-litellm-endpoint/chat/completions";
+```
 
-And optionally your LiteLLM endpoint:
+---
 
-const LITE_LLM_ENDPOINT = "https://your-litellm-domain/chat/completions";
+## 💡 Example Use Cases
 
-📓 Example Use Cases
+* 💬 "Summarize this table into 3 bullet insights"
+* 📑 `=LIKHAIFORMULA("Identify trends", A1:F10)`
+* 🛠️ Run `classifyTickets()` on support logs
+* 📊 Auto-build a dashboard from your selected sheet
+* 📋 Convert "Plan a 4-week study schedule" into a usable table
 
-Ask: "Create a table of monthly goals for Q3 2025"
+---
 
-Highlight a support ticket row → classify it via classifyTickets()
+## 📁 Audit Trail & Logging
 
-Select table + =LIKHAIFORMULA("Give top 3 insights", A1:D10)
+All prompts and responses are saved in the `Likhai Logs` tab for audit and tracking.
 
-Click "Build Dashboard" from menu to visualize KPIs
+---
 
-📁 Logs
+## 🔧 Contributing & Extensions
 
-All interactions with the model (queries + responses) are saved in the Likhai Logs sheet for later review.
+This is a prototype framework. Ideas to extend:
 
-🛠️ Contributions
+* Switch between GPT models
+* Enable persistent chat history
+* Add advanced chart types or filters
+* Embed auto-refresh functionality
 
-Feel free to fork and adapt this for your use-case. Recommended improvements:
+PRs and forks welcome.
 
-Add model switcher
+---
 
-Implement persistent sidebar memory
+## 📜 License
 
-Add rich chart types (bar, scatter, etc.)
+MIT-style. Use freely for educational, internal, or experimental purposes. Not affiliated with Google or OpenAI.
 
-🧪 License
+---
 
-This project is for internal prototype and educational use. Not affiliated with OpenAI or Google. Use at your own risk.
+## 🙌 Credits
 
-🙏 Credits
-
-Developed by [Akash Rathi] using Google Apps Script, OpenAI, and LiteLLM.
+Built by \[Akash Rathi] using Google Apps Script, OpenAI APIs, and LiteLLM proxy.
